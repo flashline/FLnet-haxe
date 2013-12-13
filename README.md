@@ -10,9 +10,9 @@ Dependency for FL- projects.
 
 ##Features: 
 
-- Extends js.html.Element & Array 
-- manages custom events.  
-- parse Xml to create a tree of objects, arrays, values. (json like)
+- Extends js.html.Element & Array (with "using" keyword). 
+- manages custom events this way :  myInstance.eventSourceType.addEventListener(myListener,[parameters to myListener]) ;
+- parse Xml to create a tree of objects, arrays, values : object.object2.array[n].element.array2[m].element2.value (json like).
 - etc...
 
 ##To be installed :   
@@ -22,4 +22,3 @@ Dependency for FL- projects.
 
 ##Licence 
 GNU-GPL
-
