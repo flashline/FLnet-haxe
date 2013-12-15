@@ -5,6 +5,7 @@ ehthumbs.db
 net/flash_line/_api/drag/*
 net/flash_line/_api/io/*
 net/flash_line/_api/math/*
+net/flash_line/_api/readme.txt
 net/flash_line/_compo/*
 #batch
 *.bat
