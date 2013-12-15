@@ -20,5 +20,8 @@ Dependency for FL- projects.
 - as haxe lib  
 - or everywhere, adding in build.xml:  -cp everywhere/
 
+NB:  
+This repo include [feffects](https://github.com/skial/feffects) a tweens api by filt3r@free.fr.
+
 ##Licence 
 GNU-GPL
