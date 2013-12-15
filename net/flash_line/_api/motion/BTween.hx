@@ -23,27 +23,55 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package net.flash_line.io ;
-import haxe.Http;
-import net.flash_line.util.Object;
-
+package net.flash_line._api.motion;
+import net.flash_line.event.EventSource ;
+import net.flash_line.event.StandardEvent;
 import net.flash_line.util.Common;
+//
+import feffects.Tween;
+import feffects.easing.Bounce;
+import feffects.easing.Cubic;
+import feffects.easing.Quad;
+import feffects.easing.Linear;
 /**
- * extends haxe.Http -usage in caller : import haxe.Http; import net.flash_line.io.HttpExtender ; using net.flash_line.io.HttpExtender;
+ * motion fx package.
+ * 
+ * Manage tween
  */
-
-class HttpExtender  {
+class BTween extends Tween {
+	public var onLoop (default,null):Dynamic;
+	public var listenerParam (default,null) :Dynamic; 
+	public var asset (default,null) :Dynamic; 
+	public function new (s : Float, e : Float, d: Float, onLoop : Dynamic, ?asset: Dynamic, ?listenerParam : Dynamic ) {
+		super(s, e, Math.round(d*1000), Quad.easeInOut, false,_onLoop,_onEnd);
+		this.onLoop = onLoop;
+		this.listenerParam = listenerParam; 
+		this.asset = asset; 
+		start();
+		
+	}
 	//
-	public static function getParameter (h:Http, v:String):Object {		
-		var params = new Object();
-		for( p in ~/[&]/g.split(v) ) {
-			var pl = p.split("=");
-			if( pl.length < 2 ) continue;
-			var name = pl.shift();
-			params.set(StringTools.urlDecode(name), StringTools.urlDecode(pl.join("=")));
-		}
-		return params;
-	}	
+	public function clear () {
+		onLoop = null;
+		listenerParam = null ;
+		asset = null;
+		
+	}
+	function _onEnd() {
+		var evtObj:StandardEvent = new StandardEvent(this,"end");
+		evtObj.value = -1;
+		evtObj.asset = asset;
+		evtObj.data = listenerParam;
+		onLoop(evtObj);
+		
+	}
+	function _onLoop(e) {
+		var evtObj:StandardEvent = new StandardEvent(this,"loop");
+		evtObj.value = e;
+		evtObj.asset = asset;
+		evtObj.data = listenerParam;
+		onLoop(evtObj);
+	}
+	
 	
 }
- 

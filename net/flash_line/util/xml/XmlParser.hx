@@ -138,7 +138,7 @@ class XmlParser extends ApiCommon   {
 		} catch( e:Dynamic ) {
 			trace("f:: xml content isn't valid " );
 		}	
-		xml = Xml.parse(result);			
+		xml = Xml.parse(result);	
 		if (autoParse) onParse( parse(xml), this); 
 		onLoad(xml,this);
 	}

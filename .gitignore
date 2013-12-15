@@ -2,7 +2,9 @@
 Thumbs.db
 ehthumbs.db
 # not yet used
-net/flash_line/_api/*
+net/flash_line/_api/drag/*
+net/flash_line/_api/io/*
+net/flash_line/_api/math/*
 net/flash_line/_compo/*
 #batch
 *.bat
