@@ -37,6 +37,11 @@ class Common extends ApiCommon {
 	public var isWindowsPhone(get, null):Bool;
 	public var isMobile(get, null):Bool;	
 	public var isWebKit(get, null):Bool;	
+	public var isFirefox(get, null):Bool;	
+	public var isSafari(get, null):Bool;	
+	public var isIphoneIpad(get, null):Bool;	
+	public var isPhone(get, null):Bool;	
+	public var isTablet(get, null):Bool;	
 	public var rootHtmlElement(default,default):Element;
 	//
 	public function elem(v:String,?parent:Element) : Element {	 
@@ -62,30 +67,53 @@ class Common extends ApiCommon {
 			trace("f::Element's id: " + v + " doesn't exist !");
 		}
 		return el;
+	}	
+	/**
+	 * convert hexa string to dec Int. ex: "1A" ==> 26
+	 * <b>return</b> a decimal int
+	 * <br/><b>v</b> an hexa string 
+	 */
+	public function hexToDec(v:String) :Int {	
+		return untyped __js__("Number('0x'+v) ;") ;
+		 
 	}
-	
-	
+	/**
+	 * convert dec int to hexa string. ex: 26 ==> "1A"
+	 * <b>return</b> a decimal int
+	 * <br/><b>v</b> an hexa string 
+	 */
+	public function decToHex(n:Int) :String {	 
+		return untyped __js__("n.toString(16)") ;
+	}
+	/**
+	 * add 2 hexa string. ex: "99" + "22" ==> "BB"
+	 * <b>return</b> v1+v2 as hexa string 
+	 * <br/><b>v1</b> an hexa string 
+	 * <br/><b>v2</b> an hexa string 
+	 */
+	public function addHex(v1:String, v2:String) :String {	 
+		return decToHex( hexToDec(v1) + hexToDec(v2) ); 
+	}	
 	/**
 	 * <b>return</b> an rgb() format
 	 * <br/><b>v</b> a #hexa format
 	 * <br/><b>see</b> net.flash_line.util.GetColor.
 	 */
-	public function toRgb(v:String) :String {	 
+	/*public function toRgb(v:String) :String {	 
 		return GetColor.toRgb(v);
-	}
+	}*/
 	/**
 	 * <b>return</b> an #hexa format
 	 * <br/><b>v</b> an rgb() format
 	 * <br/><b>see</b> net.flash_line.util.GetColor.
 	 */
-	public function toHexa(v:String) :String {	 
+	/*public function toHexa(v:String) :String {	 
 		return GetColor.toHexa(v);
-	}
+	}*/
 	public function mailIsValid (v:String) : Bool {
 		var r:EReg = ~/[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z][A-Z][A-Z]?/i;
 		return r.match(v);		
     }
-
 	/**
 	* return pagename without previous paths nor last dot & extension
 	* <br/><b>i.e.</b> "_JS-HTML-CSS/haxe/toTestNewClass/test/bin/dynUpdate/boxes.aa.html" becomes "boxes.aa"
@@ -106,21 +134,35 @@ class Common extends ApiCommon {
 		if (p > -1) return str.substr(0, p + 1 );
 		return "";
 	}
-	public function Html5IsValid(?v:String):Bool {
-		return false;
-	}
-	
-	
-	//
+	// machines
+	function get_isPhone ():Bool {
+		return (Browser.window.screen.availHeight <= 800 && isMobile) ;
+	}	
+	function get_isTablet ():Bool {
+		return (Browser.window.screen.availHeight > 800 && isMobile) ;
+	}	
 	function get_isMobile() :Bool {
-		return new EReg("iPhone|iPod|Android|opera mini|blackberry|palm os|palm|hiptop|avantgo|plucker|xiino|blazer|elaine|iris|3g_t|opera mobi|windows phone|iemobile".toLowerCase(),"i").match(Browser.navigator.userAgent.toLowerCase());
-	}
-	function get_isWebKit() :Bool {
-		return new EReg("webkit|chrome|safari".toLowerCase(),"i").match(Browser.navigator.userAgent.toLowerCase());
+		return new EReg("iPhone|ipad|iPod|Android|opera mini|blackberry|palm os|palm|hiptop|avantgo|plucker|xiino|blazer|elaine|iris|3g_t|opera mobi|windows phone|iemobile".toLowerCase(),"i").match(Browser.navigator.userAgent.toLowerCase());
+	}	
+	// os
+	function get_isIphoneIpad() :Bool {
+		return new EReg("iPhone|iPad".toLowerCase(),"i").match(Browser.navigator.userAgent.toLowerCase()) ;
 	}
 	function get_isWindowsPhone() :Bool {
 		return new EReg("windows phone|iemobile".toLowerCase(),"i").match(Browser.navigator.userAgent.toLowerCase());
 	}
+	// browsers
+	/// 		until now isSafari() is used also for android native browser.
+	function get_isSafari() :Bool {
+		return new EReg("safari".toLowerCase(),"i").match(Browser.navigator.userAgent.toLowerCase()) && (!new EReg("chrome".toLowerCase(),"i").match(Browser.navigator.userAgent.toLowerCase()));
+	}
+	function get_isFirefox() :Bool {
+		return new EReg("firefox".toLowerCase(),"i").match(Browser.navigator.userAgent.toLowerCase()) ;
+	}
+	function get_isWebKit() :Bool {
+		return new EReg("webkit|chrome|safari".toLowerCase(),"i").match(Browser.navigator.userAgent.toLowerCase());
+	}
+	
 		
 }
  
