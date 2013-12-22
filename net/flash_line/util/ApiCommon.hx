@@ -217,22 +217,24 @@ class ApiCommon {
 		} else untyped js.Boot.__trace(v,i);
 	}
 	public function decodeXmlReserved(str:String) :String {
-		var i:Int=str.indexOf("~#e") ;
-		while (i>-1) {
-			str=str.substr(0,i)+"&"+str.substr(i+3);
-			i=str.indexOf("~#e") ;
-		}
-		i=str.indexOf("~#{") ;
-		while (i>-1) {
-			str=str.substr(0,i)+"<"+str.substr(i+3);
+		str = strVal(str, "");
+		if (str!="") {
+			var i:Int=str.indexOf("~#e") ;
+			while (i>-1) {
+				str=str.substr(0,i)+"&"+str.substr(i+3);
+				i=str.indexOf("~#e") ;
+			}
 			i=str.indexOf("~#{") ;
-		}
-		i=str.indexOf("~#}") ;
-		while (i>-1) {
-			str=str.substr(0,i)+">"+str.substr(i+3);
+			while (i>-1) {
+				str=str.substr(0,i)+"<"+str.substr(i+3);
+				i=str.indexOf("~#{") ;
+			}
 			i=str.indexOf("~#}") ;
+			while (i>-1) {
+				str=str.substr(0,i)+">"+str.substr(i+3);
+				i=str.indexOf("~#}") ;
+			}
 		}
-		
 		return str ;
 	}
 	
