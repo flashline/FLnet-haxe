@@ -60,8 +60,8 @@ class ElementExtender  {
 		if (el.getElementsByTagName(v)[0] == null) trace("f:: tag '" + v + "' doesn't exist in element with id '"+el.id+"'");
 		return cast(el.getElementsByTagName(v)[0], Element)  ;
 	}
-	/* KEEP... THEN TODO
-	public function getElementsByAttribute(oElm, strTagName, strAttributeName, strAttributeValue){
+	/* KEEP... THEN TODO in haxe
+	public function elemByAtt(oElm, strTagName, strAttributeName, strAttributeValue){
 		var arrElements = (strTagName == "*" && oElm.all)? oElm.all : oElm.getElementsByTagName(strTagName);
 		var arrReturnElements = new Array();
 		var oAttributeValue = (typeof strAttributeValue != "undefined")? new RegExp("(^|\\s)" + strAttributeValue + "(\\s|$)", "i") : null;
@@ -307,6 +307,9 @@ class ElementExtender  {
 		}
 		return ret;
 	}
+	/**
+	 * @private
+	 */
 	static function removeDelegateListener(srcEvt:Dynamic, type:String, listenerFunction:Dynamic, ?b:Bool = false) :Bool {
 		var match = false;
 		var el:Dynamic = untyped srcEvt;
@@ -337,10 +340,6 @@ class ElementExtender  {
 		}
 		return deleguateFunction ;
 	}
-	/**
-	 * <br/><b>v</b> dynamic value.
-	 * <br/><b>return</b> a string.
-	 */
 	static function strVal(s:Dynamic,?defVal:String="") :String {	
 		if (s==null) return defVal ;
 		if (s=="") return defVal;

@@ -142,7 +142,7 @@ class Common extends ApiCommon {
 		return (Browser.window.screen.availHeight > 800 && isMobile) ;
 	}	
 	function get_isMobile() :Bool {
-		return new EReg("iPhone|ipad|iPod|Android|opera mini|blackberry|palm os|palm|hiptop|avantgo|plucker|xiino|blazer|elaine|iris|3g_t|opera mobi|windows phone|iemobile".toLowerCase(),"i").match(Browser.navigator.userAgent.toLowerCase());
+		return new EReg("iPhone|ipad|iPod|Android|opera mini|blackberry|palm os|palm|hiptop|avantgo|plucker|xiino|blazer|elaine|iris|3g_t|opera mobi|windows phone|iemobile|mobile".toLowerCase(),"i").match(Browser.navigator.userAgent.toLowerCase());
 	}	
 	// os
 	function get_isIphoneIpad() :Bool {
@@ -152,7 +152,7 @@ class Common extends ApiCommon {
 		return new EReg("windows phone|iemobile".toLowerCase(),"i").match(Browser.navigator.userAgent.toLowerCase());
 	}
 	// browsers
-	/// 		until now isSafari() is used also for android native browser.
+	/// isSafari() is used also for android native browser.
 	function get_isSafari() :Bool {
 		return new EReg("safari".toLowerCase(),"i").match(Browser.navigator.userAgent.toLowerCase()) && (!new EReg("chrome".toLowerCase(),"i").match(Browser.navigator.userAgent.toLowerCase()));
 	}
