@@ -46,6 +46,7 @@ class StandardEvent implements Dynamic {
 	public static inline  var MOUSE_WHEEL : String = "mousewheel";
 	/**
 	 * <b> data:</b> Used to store -facultatives- parameters sent by bind()'s caller to the listener method.
+	 * NOT TO BE USED BY dispatcher
 	 */
 	public var data:Dynamic;
 	/**
@@ -71,6 +72,7 @@ class StandardEvent implements Dynamic {
 		this.type = type;
 		this.message = message;
 	}
+	
 	
 	
 }

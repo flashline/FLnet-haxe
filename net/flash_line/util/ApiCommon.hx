@@ -43,7 +43,7 @@ class ApiCommon {
 	static public inline var IN_PAGE_ERROR_MSG:String = "fl.net error. See message in page." ;
 	//
 	static public var alertFunction:Dynamic ;		
-	//static public var debugIsSet:Bool = false ;
+	//static public var debugIsSet:Bool = false ;	
 	/**
 	 * <br/><b>v</b> dynamic value.
 	 * <br/><b>return</b> true or false.
@@ -233,6 +233,11 @@ class ApiCommon {
 			while (i>-1) {
 				str=str.substr(0,i)+">"+str.substr(i+3);
 				i=str.indexOf("~#}") ;
+			}
+			i=str.indexOf("~#ç") ;
+			while (i>-1) {
+				str=str.substr(0,i)+"%"+str.substr(i+3);
+				i=str.indexOf("~#ç") ;
 			}
 		}
 		return str ;

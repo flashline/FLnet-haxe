@@ -26,6 +26,7 @@
 package net.flash_line.util ;
 import js.Browser;
 import js.html.Node;
+import js.html.NodeList;
 import js.html.Element;
 /**
  * Util package
@@ -67,6 +68,23 @@ class Common extends ApiCommon {
 			trace("f::Element's id: " + v + " doesn't exist !");
 		}
 		return el;
+	}	
+	public function qs(v:String, ?parent:Element) : Element {	
+		var el:Element;
+		if (rootHtmlElement == null) rootHtmlElement = Browser.document.body;
+		if (parent == null) parent = rootHtmlElement;
+		el=parent.querySelector(v);
+		if (el==null) {
+			trace("f::Element's by selector: " + v + " doesn't exist !");
+		}
+		return el;
+	}	
+	public function qsa(v:String, ?parent:Element) :NodeList {	
+		var nl:NodeList;
+		if (rootHtmlElement == null) rootHtmlElement = Browser.document.body;
+		if (parent == null) parent = rootHtmlElement;
+		nl=parent.querySelectorAll(v);		
+		return nl;
 	}	
 	/**
 	 * convert hexa string to dec Int. ex: "1A" ==> 26

@@ -40,7 +40,7 @@ class Clock extends Timer  {
 	* <br/><b>f</b> callback func 
 	* <br/><b>per</b> period in sec.
 	*/
-    public function new ( f:Dynamic,?per : Float=0.04){
+    public function new ( ?f:Dynamic,?per :Float=0.04){
 		super(Math.round(per * 1000));
 		top = new EventSource();
 		run = clockRun ;
@@ -63,7 +63,7 @@ class Clock extends Timer  {
 	
 	function clockRun () {
 		if (!_idle) {
-			listener(this);
+			if (listener != null) listener(this) ;
 			top.dispatch(new StandardEvent(this));
 		}
 	}
